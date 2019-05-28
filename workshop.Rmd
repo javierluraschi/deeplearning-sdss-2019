@@ -4,3 +4,9 @@ output: html_notebook
 ---
 
 # Introduction to Deep Learning
+
+## Installation
+
+1. Download and Install R: https://cloud.r-project.org/
+2. Download and Install RStudio: https://www.rstudio.com/products/rstudio/download/#download
+3. Download and Install Anaconda: https://www.anaconda.com/distribution/
