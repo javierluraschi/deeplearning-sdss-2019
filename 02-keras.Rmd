@@ -18,7 +18,7 @@ options(yardstick.event_first = FALSE)
 Let's look at the data we're working with
 
 ```{r}
-glimpse(kyphosis)
+___(kyphosis)
 ```
 
 We're going to predict whether kyphosis is present.
@@ -26,15 +26,15 @@ We're going to predict whether kyphosis is present.
 First, we'll perform an initial split into training/testing of the dataset.
 
 ```{r}
-data_split <- initial_split(kyphosis, prop = 3/4, strata = "Kyphosis")
-training_data <- training(data_split)
-testing_data <- testing(data_split)
+data_split <- initial_split(kyphosis, prop = 3/4, strata = ___)
+training_data <- training(___)
+testing_data <- testing(___)
 ```
 
 Let's build our favorite classification model!
 
 ```{r}
-logreg <- glm(Kyphosis ~ Age + Number + Start, data = training_data,
+logreg <- glm(___, data = training_data,
               family = binomial("logit"))
 ```
 
@@ -42,24 +42,24 @@ Create a data frame with the predictions.
 
 ```{r}
 predicted <- testing_data %>% 
-  mutate(present = predict(logreg, testing_data, type = "response"))
+  ___(present = predict(logreg, testing_data, type = "response"))
 ```
 
 Calculate AUC
 
 ```{r}
-roc_auc(predicted, Kyphosis, present) # 0.719
+roc_auc(___)
 ```
 
 ## "Neural net"
 
 ```{r}
 model1 <- keras_model_sequential() %>% 
-  layer_dense(2, input_shape = 3, activation = "softmax")
+  layer_dense(___, input_shape = ___, activation = "softmax")
 
 model1 %>% 
   compile(loss = "binary_crossentropy",
-          optimizer = optimizer_adam(lr = 0.001),
+          optimizer = ___(lr = 0.001),
           metrics = "accuracy")
 
 ```
@@ -70,23 +70,19 @@ Data prep
 x <- training_data %>% 
   select(Age, Number, Start) %>% 
   as.matrix()
-y <- training_data$Kyphosis %>% 
-  as.integer() %>% 
-  `-`(1) %>% 
-  to_categorical()
+
+# As categorical: Kyphosis - 1
+y <- to_categorical(___)
 ```
 
 Fit the model
 
 ```{r}
-model1 %>% 
-  fit(x = x, y = y, batch_size = 32, epochs = 100, verbose = 0)
+model1 %>% fit(___)
 ```
 
 ```{r}
-predictions <- predict(model1, testing_data %>% 
-                             select(Age, Number, Start) %>% 
-                             as.matrix())
+predictions <- predict(model1, ___)
 predicted <- testing_data %>% 
   mutate(present = predictions[,2])
 
