@@ -48,7 +48,6 @@ predicted <- testing_data %>%
 Calculate AUC
 
 ```{r}
-
 roc_auc(predicted, Kyphosis, present) # 0.719
 ```
 
